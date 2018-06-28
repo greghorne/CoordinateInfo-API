@@ -27,10 +27,10 @@ Tech Stack:
 
 API Usage:
 
-    - http://api.website.com/api/v1?latitude_y=float&longitude_x=float&db=db_type&key=optional
+    - http://api.website.com/api/v1?longitude_x=float&latitude_y=float&db=db_type&key=optional
 
-        latitude_y  = type: float (latitude)
-        longitude_x = type: float (longitude)
+        longitude_x = type: float 
+        latitude_y  = type: float 
         db     = type: string ==> pg (default) or mongo (pending implementation)
         key    = type: string ==> authorization key     (pending implementation)
 
@@ -52,7 +52,7 @@ API Usage:
 
 Example API Calls:
 
-    - example http://api.website.com/api/v1/coord_info?latitude_y=23.243660&longitude_x=88.445670
+    - example http://api.website.com/api/v1/coord_info?longitude_x=88.445670&latitude_y=23.243660
 
         returns JSON (intersects location in India)
 
@@ -73,7 +73,7 @@ Example API Calls:
             (India, West Bengal State, Nadia District)
 
 
-    - example https://api.website.com/api/v1/coord_info?latitude_y=36.153980&longitude_x=-95.992775
+    - example https://api.website.com/api/v1/coord_info?longitude_x=-95.992775&latitude_y=36.153980
 
         returns JSON (intersects location in Tulsa, OK)
 
@@ -94,7 +94,7 @@ Example API Calls:
             (United States, Oklahoma State, Tulsa County)
 
 
-    - example http://api.website.com/api/v1/coord_info?latitude_y=39.904200&longitude_x=116.407396
+    - example http://api.website.com/api/v1/coord_info?longitude_x=116.407396&latitude_y=39.904200
 
         returns JSON (intersects location in China)
 
@@ -120,7 +120,7 @@ Example API Calls:
             Also note dataset error of repeat of 北京 as 北京|北京.  北京 = Beijing
 
 
-    - example http://api.website.com/api/v1/coord_info?latitude_y=43.413029&longitude_x=34.299316
+    - example http://api.website.com/api/v1/coord_info?longitude_x=34.299316&latitude_y=43.413029
 
         returns JSON (intersects location in The Black Sea):
         {
@@ -129,7 +129,7 @@ Example API Calls:
         }
 
 
-    - example http://api.website.com/api/v1/coord_info?latitude_y=15.552727&longitude_x=-200
+    - example http://api.website.com/api/v1/coord_info?longitude_x=-200&latitude_y=15.552727
 
         returns JSON (invalid longitude_x):
         {
@@ -139,7 +139,7 @@ Example API Calls:
             }
         }
 
-    - example http://api.website.com/api/v1/coord_info?latitude_y=15.552727&longitude_x=48.516388
+    - example http://api.website.com/api/v1/coord_info?longitude_x=48.516388&latitude_y=15.552727
 
         returns JSON (intersects location in Yemen): 
         {
@@ -163,15 +163,16 @@ Example API Calls:
 
 Notes:
 
-    - There are additonal columns in the dataset but I have cut off after the first two interations of a location.
+    - There are additonal columns in the dataset but I have cut them off after the first two interations of a location.
 
     - Creating this app has been a weird trip
       
-      rails new . --api --skip-turbolinks --skip-puma --database=postgresql
+      rails new . --api --skip-turbolinks --skip-puma --database=postgresql (which is what finally worked)
 
       --skip-active-records ==> if used as an option I never could create a controller 
       Instead of a controller, I tried putting code into an .rb file in /lib.  This would work in
-      development but once I switched to productions then rails couldn't find the /lib/file.rb.
-      I never could resolve this issue.
+      'development' but once I switched to 'production' then rails couldn't find the /lib/file.rb.
+      Googled the issue and tried a number of 'solutions'.  I never could resolve this issue.
+
       
       
