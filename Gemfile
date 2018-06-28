@@ -21,6 +21,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 # gem 'capistrano-rails', group: :development
 
 gem 'thin'
+gem 'json'
+gem 'rest-client'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
