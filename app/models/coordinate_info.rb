@@ -1,13 +1,12 @@
 class CoordinateInfo < ApplicationRecord
 
-    require 'rest-client'
-    require 'json'
-
     $db_host = ENV["RAILS_HOST"]
     $db_name = ENV["RAILS_DATABASE"]
     $db_port = ENV["RAILS_PORT"]
     $db_user = ENV["RAILS_USERNAME"]
     $db_pwd  = ENV["RAILS_PASSWORD"]
+
+    $db_pwd  = "password"
 
     # =========================================
     class Coordinate
@@ -58,11 +57,12 @@ class CoordinateInfo < ApplicationRecord
 
                     return conn
                 rescue PG::Error => e
-                    false
+                    return false
                 end
 
             when "mongo"
                 begin
+
                 end
 
         end
@@ -93,11 +93,26 @@ class CoordinateInfo < ApplicationRecord
     # =========================================
     def self.coord_info_do(long_x, lat_y, key, db)
 
+        # ----------------------------------------
+        # ----------------------------------------
+        # mongo support in progress; exit out
+        if db = "mongo"
+            return_hash = { :success => 0, 
+                :results =>  { msg: "mongo currently not supported" }
+              }
+
+            return JSON.generate(return_hash)
+        end
+        # ----------------------------------------
+        # ----------------------------------------
+
+
         # pass request params and create coordinate object
         coordinate = Coordinate.new(long_x, lat_y, key, db)
 
         # check validity of x,y coordinates
         if !coordinate.valid_xy
+
             return_hash = { :success => 0, 
                             :results =>  { msg: "invalid lat_y and/or long_x" }
                           }
@@ -105,24 +120,36 @@ class CoordinateInfo < ApplicationRecord
             return JSON.generate(return_hash)
 
         else
-
             # get db connection and execute query-function
             conn = get_db_conn(coordinate.db)
-puts conn            
-            response_query = conn.query("select z_world_xy_intersect($1, $2)",[coordinate.longitude_x.to_f, coordinate.latitude_y.to_f])
-            conn.close
 
-            if response_query.num_tuples.to_i === 1
-                return_json = adjust_response_data(response_query)
+            if conn
+
+                # postgis function z_world_xy_intersects
+                response_query = conn.query("select z_world_xy_intersect($1, $2)",[coordinate.longitude_x.to_f, coordinate.latitude_y.to_f])
+                conn.close
+
+                if response_query.num_tuples.to_i === 1
+                    return_json = adjust_response_data(response_query)
+                else
+                    return_json = {}
+                end
+
+                return_hash = { :success => 1,
+                                :results => return_json 
+                            }
+
+                return JSON.generate(return_hash)
+
             else
-                return_json = {}
+                return_hash = { :success => 0, 
+                    :results =>  { msg: "database connect error" }
+                  }
+
+                return JSON.generate(return_hash)
+
             end
 
-            return_hash = { :success => 1,
-                            :results => return_json 
-                          }
-
-            return JSON.generate(return_hash)
         end
 
     end
