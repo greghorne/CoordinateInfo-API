@@ -95,7 +95,10 @@ class CoordinateInfoV1 < ApplicationRecord
 
         # ----------------------------------------
         # ----------------------------------------
-        # mongo support in progress; exit out
+        # mongo support in progress; reject and exit out
+puts "--------------"
+puts db
+puts "--------------"
         if db == "mongo"
             return_hash = { :success => 0, 
                 :results =>  { msg: "mongo currently not supported" }

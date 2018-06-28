@@ -23,7 +23,7 @@ Tech Stack:
 	-	Vagrant Box setup script: https://github.com/greghorne/VagrantRailsBox/blob/master/setup.sh
 	-	PostgreSQL 9.4 with PostGIS 2.1.4 - Database server resides on a Raspberry Pi 2 Model B
     -   API tested with Postman (see test folder for JSON test file)
-
+ 
 
 API Usage:
 
