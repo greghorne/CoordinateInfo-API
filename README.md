@@ -27,10 +27,10 @@ Tech Stack:
 
 API Usage:
 
-    - http://api.website.com/api/v1?lat_y=float&long_x=float&db=db_type&key=optional
+    - http://api.website.com/api/v1?latitude_y=float&longitude_x=float&db=db_type&key=optional
 
-        lat_y  = type: float (latitude)
-        long_x = type: float (longitude)
+        latitude_y  = type: float (latitude)
+        longitude_x = type: float (longitude)
         db     = type: string ==> pg (default) or mongo (pending implementation)
         key    = type: string ==> authorization key     (pending implementation)
 
@@ -52,7 +52,7 @@ API Usage:
 
 Example API Calls:
 
-    - example http://api.website.com/api/v1/coord_info?lat_y=23.243660&long_x=88.445670
+    - example http://api.website.com/api/v1/coord_info?latitude_y=23.243660&longitude_x=88.445670
 
         returns JSON (intersects location in India)
 
@@ -73,7 +73,7 @@ Example API Calls:
             (India, West Bengal State, Nadia District)
 
 
-    - example https://api.website.com/api/v1/coord_info?lat_y=36.153980&long_x=-95.992775
+    - example https://api.website.com/api/v1/coord_info?latitude_y=36.153980&longitude_x=-95.992775
 
         returns JSON (intersects location in Tulsa, OK)
 
@@ -94,7 +94,7 @@ Example API Calls:
             (United States, Oklahoma State, Tulsa County)
 
 
-    - example http://api.website.com/api/v1/coord_info?lat_y=39.904200&long_x=116.407396
+    - example http://api.website.com/api/v1/coord_info?latitude_y=39.904200&longitude_x=116.407396
 
         returns JSON (intersects location in China)
 
@@ -120,7 +120,7 @@ Example API Calls:
             Also note dataset error of repeat of 北京 as 北京|北京.  北京 = Beijing
 
 
-    - example http://api.website.com/api/v1/coord_info?lat_y=43.413029&long_x=34.299316
+    - example http://api.website.com/api/v1/coord_info?latitude_y=43.413029&longitude_x=34.299316
 
         returns JSON (intersects location in The Black Sea):
         {
@@ -129,17 +129,17 @@ Example API Calls:
         }
 
 
-    - example http://api.website.com/api/v1/coord_info?lat_y=15.552727&long_x=-200
+    - example http://api.website.com/api/v1/coord_info?latitude_y=15.552727&longitude_x=-200
 
-        returns JSON (invalid long_x):
+        returns JSON (invalid longitude_x):
         {
             "success": 0,
             "response": {
-                "msg": "invalid long_x and/or lat_y"
+                "msg": "invalid longitude_x and/or latitude_y"
             }
         }
 
-    - example http://api.website.com/api/v1/coord_info?lat_y=15.552727&long_x=48.516388
+    - example http://api.website.com/api/v1/coord_info?latitude_y=15.552727&longitude_x=48.516388
 
         returns JSON (intersects location in Yemen): 
         {
