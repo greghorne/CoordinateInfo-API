@@ -5,7 +5,7 @@ class CoordinateInfosController < ApplicationController
         db  = params[:db]
         key = params[:key]
 
-        response = CoordinateInfo.coord_info_do(params['longitude_x'], params['latitude_y'], db, key)
+        response = CoordinateInfoV1.coord_info_do(params['longitude_x'], params['latitude_y'], db, key)
         render json: response
     end
 
