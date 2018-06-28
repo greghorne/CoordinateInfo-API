@@ -2,17 +2,17 @@
 
 Scope:
 
-	-	Rails 5 API
-	-	Given an x, y coordinate, return country and municipality information that intersects the coordinates.
+	-   Rails 5 API
+	-   Given an x, y coordinate, return country and municipality information that intersects the coordinates.
 
 
 Data Source:
 
-	-	Global Administrative Areas - www.gadm.org
-	-	GADM datasetof Global Administrative Area
-	-	Downloaded “gadm28.zip” which contains an ESRI format shape (.shp) file.
-	-	File version 2.8 (November 2015)
-	-	shp2pgsql to convert the .shp file into insert statements for a PostgreSQL/PostGIS DB.
+	-   Global Administrative Areas - www.gadm.org
+	-   GADM datasetof Global Administrative Area
+	-   Downloaded “gadm28.zip” which contains an ESRI format shape (.shp) file.
+	-   File version 2.8 (November 2015)
+	-   shp2pgsql to convert the .shp file into insert statements for a PostgreSQL/PostGIS DB.
 
 
 Tech Stack:
