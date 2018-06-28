@@ -22,12 +22,13 @@ Tech Stack:
 	-	Development Machine - Vagrant init ubuntu/trusty32 - (3.13.0-110-generic)
 	-	Vagrant Box setup script: https://github.com/greghorne/VagrantRailsBox/blob/master/setup.sh
 	-	PostgreSQL 9.4 with PostGIS 2.1.4 - Database server resides on a Raspberry Pi 2 Model B
-    -   API tested with Postman (see test folder for JSON test file)
+    -   API test with Postman (see test folder for JSON test file)
+    -   Deployed to Heroku:  https://coordinate-info.herokuapp.com
  
 
 API Usage:
 
-    - http://api.website.com/api/v1?longitude_x=float&latitude_y=float&db=db_type&key=optional
+    - https://coordinate-info.herokuapp.com/api/v1?longitude_x=float&latitude_y=float&db=db_type&key=optional
 
         longitude_x = type: float 
         latitude_y  = type: float 
@@ -52,7 +53,7 @@ API Usage:
 
 Example API Calls:
 
-    - example http://api.website.com/api/v1/coord_info?longitude_x=88.445670&latitude_y=23.243660
+    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=88.445670&latitude_y=23.243660
 
         returns JSON (intersects location in India)
 
@@ -73,7 +74,7 @@ Example API Calls:
             (India, West Bengal State, Nadia District)
 
 
-    - example https://api.website.com/api/v1/coord_info?longitude_x=-95.992775&latitude_y=36.153980
+    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=-95.992775&latitude_y=36.153980
 
         returns JSON (intersects location in Tulsa, OK)
 
@@ -94,7 +95,7 @@ Example API Calls:
             (United States, Oklahoma State, Tulsa County)
 
 
-    - example http://api.website.com/api/v1/coord_info?longitude_x=116.407396&latitude_y=39.904200
+    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=116.407396&latitude_y=39.904200
 
         returns JSON (intersects location in China)
 
@@ -120,7 +121,7 @@ Example API Calls:
             Also note dataset error of repeat of 北京 as 北京|北京.  北京 = Beijing
 
 
-    - example http://api.website.com/api/v1/coord_info?longitude_x=34.299316&latitude_y=43.413029
+    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=34.299316&latitude_y=43.413029
 
         returns JSON (intersects location in The Black Sea):
         {
@@ -129,7 +130,7 @@ Example API Calls:
         }
 
 
-    - example http://api.website.com/api/v1/coord_info?longitude_x=-200&latitude_y=15.552727
+    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=-200&latitude_y=15.552727
 
         returns JSON (invalid longitude_x):
         {
@@ -139,7 +140,7 @@ Example API Calls:
             }
         }
 
-    - example http://api.website.com/api/v1/coord_info?longitude_x=48.516388&latitude_y=15.552727
+    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=48.516388&latitude_y=15.552727
 
         returns JSON (intersects location in Yemen): 
         {
@@ -173,6 +174,9 @@ Notes:
       Instead of a controller, I tried putting code into an .rb file in /lib.  This would work in
       'development' but once I switched to 'production' then rails couldn't find the /lib/file.rb.
       Googled the issue and tried a number of 'solutions'.  I never could resolve this issue.
+
+      repo CoordinateInfoAPI was the previous version I worked on that in the end I just had to dump.
+
 
       
       
