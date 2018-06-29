@@ -91,7 +91,7 @@ class CoordinateInfoV1 < ApplicationRecord
     # =========================================
 
     # =========================================
-    def self.coord_info_do(long_x, lat_y, db, key)
+    def self.coord_info_do(longitude_x, latitude_y, db, key)
 
         # ----------------------------------------
         # ----------------------------------------
@@ -108,13 +108,13 @@ class CoordinateInfoV1 < ApplicationRecord
 
 
         # pass request params and create coordinate object
-        coordinate = Coordinate.new(long_x, lat_y, key, db)
+        coordinate = Coordinate.new(longitude_x, latitude_y, key, db)
 
         # check validity of x,y coordinates
         if !coordinate.valid_xy
 
             return_hash = { :success => 0, 
-                            :results =>  { msg: "invalid lat_y and/or long_x" }
+                            :results =>  { msg: "invalid longitude_x and/or latitude_y" }
                           }
 
             return JSON.generate(return_hash)
