@@ -9,11 +9,22 @@ Scope:
 Data Source:
 
 	-   Global Administrative Areas - www.gadm.org
-	-   GADM datasetof Global Administrative Area
+	-   GADM dataset of Global Administrative Area
 	-   Downloaded “gadm28.zip” which contains an ESRI format shape (.shp) file.
 	-   File version 2.8 (November 2015)
 	-   shp2pgsql to convert the .shp file into insert statements for a PostgreSQL/PostGIS DB.
+    -   This dataset has spatial attributes, specifically a 'geom' column once loaded into PostgreSQL.
 
+    -   PostgreSQL function 'z_world_xy_intersect($1_double_precision, $2_double_precision)' defined as:
+
+        SELECT world.objectid,world.name_0,
+        world.name_1,world.nl_name_1,world.type_1,world.engtype_1,
+        world.name_2,world.nl_name_2,world.type_2,world.engtype_2,
+        world.name_3,world.nl_name_3,world.type_3,world.engtype_3,
+        world.name_4,world.type_4,world.engtype_4,
+        world.shape_leng,world.shape_area FROM world
+        WHERE ST_Intersects( world.geom, ST_GeomFromText('POINT(' || $1 || ' ' || $2 || ')', 4326));
+     
 
 Tech Stack:
 
@@ -171,11 +182,12 @@ Notes:
       rails new . --api --skip-turbolinks --skip-puma --database=postgresql (which is what finally worked)
 
       --skip-active-records ==> if used as an option I never could create a controller 
-      Instead of a controller, I tried putting code into an .rb file in /lib.  This would work in
-      'development' but once I switched to 'production' then rails couldn't find the /lib/file.rb.
+      Instead of a controller, I tried putting code into an .rb file in lib/.  This would work in
+      'development' but once I switched to 'production' then rails couldn't find the lib/file.rb.
       Googled the issue and tried a number of 'solutions'.  I never could resolve this issue.
+      Basically, you can't generate a new controller on the command line without active records and a db.
 
-      repo CoordinateInfoAPI was the previous version I worked on that in the end I just had to dump.
+      repo CoordinateInfoAPI was the previous version I worked on that in the end I just had to dump the project.
 
 
       
