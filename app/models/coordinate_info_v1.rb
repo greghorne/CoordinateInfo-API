@@ -1,4 +1,8 @@
 require "resolv"
+# require "redis"
+# require "redis-namespace"
+
+$redis = Redis::Namespace.new("redis_hostnames", :redis => Redis.new)
 
 class CoordinateInfoV1 < ApplicationRecord
 
@@ -48,7 +52,15 @@ class CoordinateInfoV1 < ApplicationRecord
         case db_type
             when "pg"
                 
+                # try and see if i can cache the hostaddr
+                # if $redis.get($db_host)
+                #     puts "found"
+                # else
+                #     puts "not found"
+                # end
+
                 # resolve the host ip address if necessary; :hostaddr (ip) overrides :host (name)
+
                 begin
                     hostaddr = Resolv.getaddress $db_host
                 rescue
@@ -62,7 +74,7 @@ class CoordinateInfoV1 < ApplicationRecord
                         :dbname   => $db_name,
                         :user     => $db_user,
                         :password => $db_pwd,
-                        :hostaddr => hostaddr
+                        :hostaddr => hostaddr,
                         :sslmode  => $db_sslmode
                     )
 
