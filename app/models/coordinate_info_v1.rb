@@ -1,12 +1,13 @@
+require "resolv"
+
 class CoordinateInfoV1 < ApplicationRecord
 
-    $db_host = ENV["RAILS_HOST"]
-    $db_name = ENV["RAILS_DATABASE"]
-    $db_port = ENV["RAILS_PORT"]
-    $db_user = ENV["RAILS_USERNAME"]
-    $db_pwd  = ENV["RAILS_PASSWORD"]
-
-    # $db_pwd  = "password"
+    $db_host    = ENV["RAILS_HOST"]
+    $db_name    = ENV["RAILS_DATABASE"]
+    $db_port    = ENV["RAILS_PORT"]
+    $db_user    = ENV["RAILS_USERNAME"]
+    $db_pwd     = ENV["RAILS_PASSWORD"]
+    $db_sslmode = "require"
 
     # =========================================
     class Coordinate
@@ -46,13 +47,23 @@ class CoordinateInfoV1 < ApplicationRecord
 
         case db_type
             when "pg"
+                
+                # resolve the host ip address if necessary; :hostaddr (ip) overrides :host (name)
+                begin
+                    hostaddr = Resolv.getaddress $db_host
+                rescue
+                    # catch the error but just continue
+                end
+
                 begin
                     conn = PG::Connection.open(
                         :host     => $db_host,
                         :port     => $db_port,
                         :dbname   => $db_name,
                         :user     => $db_user,
-                        :password => $db_pwd
+                        :password => $db_pwd,
+                        :hostaddr => hostaddr
+                        :sslmode  => $db_sslmode
                     )
 
                     return conn
