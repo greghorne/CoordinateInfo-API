@@ -25,7 +25,7 @@ Data Source:
         world.shape_leng,world.shape_area FROM world
         WHERE ST_Intersects( world.geom, ST_GeomFromText('POINT(' || $1 || ' ' || $2 || ')', 4326));
 
-        Simply put, the function is passed a longitude and latitude (decimal degress) and returns intersecting data.
+        Simply put, the function is passed a longitude and latitude (decimal degrees) and returns intersecting data.
      
 
 Tech Stack:
