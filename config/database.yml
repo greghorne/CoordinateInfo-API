@@ -23,11 +23,11 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['RAILS_DATABASE'] %>
-  username: <%= ENV['RAILS_USERNAME'] %>
-  password: <%= ENV['RAILS_PASSWORD'] %>
-  host:     <%= ENV['RAILS_HOST'] %>
-  port:     <%= ENV['RAILS_PORT'] %>
+  database: <%= ENV['RAILS_DATABASE_PG'] %>
+  username: <%= ENV['RAILS_USERNAME_PG'] %>
+  password: <%= ENV['RAILS_PASSWORD_PG'] %>
+  host:     <%= ENV['RAILS_HOST_PG'] %>
+  port:     <%= ENV['RAILS_PORT_PG'] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
