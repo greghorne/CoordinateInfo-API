@@ -6,12 +6,18 @@ $redis = Redis::Namespace.new("redis_hostnames", :redis => Redis.new)
 
 class CoordinateInfoV1 < ApplicationRecord
 
-    $db_host    = ENV["RAILS_HOST"]
-    $db_name    = ENV["RAILS_DATABASE"]
-    $db_port    = ENV["RAILS_PORT"]
-    $db_user    = ENV["RAILS_USERNAME"]
-    $db_pwd     = ENV["RAILS_PASSWORD"]
-    $db_sslmode = "require"
+    $db_host_pg    = ENV["RAILS_HOST_PG"]
+    $db_name_pg    = ENV["RAILS_DATABASE_PG"]
+    $db_port_pg    = ENV["RAILS_PORT_PG"]
+    $db_user_pg    = ENV["RAILS_USERNAME_PG"]
+    $db_pwd_pg     = ENV["RAILS_PASSWORD_PG"]
+    $db_sslmode    = "require"
+
+    $db_host_mongo = ENV["RAILS_HOST_MONGO"]
+    $db_name_mongo = ENV["RAILS_DATABASE_MONGO"]
+    $db_port_mongo = ENV["RAILS_PORT_MONGO"]
+    $db_user_mongo = ENV["RAILS_USERNAME_MONGO"]
+    $db_pwd_mongo  = ENV["RAILS_PASSWORD_MONGO"]
 
     # =========================================
     class Coordinate
@@ -53,7 +59,7 @@ class CoordinateInfoV1 < ApplicationRecord
             when "pg"
                 
                 # try and see if i can cache the hostaddr
-                # if $redis.get($db_host)
+                # if $redis.get($db_host_pg)
                 #     puts "found"
                 # else
                 #     puts "not found"
@@ -62,18 +68,18 @@ class CoordinateInfoV1 < ApplicationRecord
                 # resolve the host ip address if necessary; :hostaddr (ip) overrides :host (name)
 
                 begin
-                    hostaddr = Resolv.getaddress $db_host
+                    hostaddr = Resolv.getaddress $db_host_pg
                 rescue
                     # catch the error but just continue
                 end
 
                 begin
                     conn = PG::Connection.open(
-                        :host     => $db_host,
-                        :port     => $db_port,
-                        :dbname   => $db_name,
-                        :user     => $db_user,
-                        :password => $db_pwd,
+                        :host     => $db_host_pg,
+                        :port     => $db_port_pg,
+                        :dbname   => $db_name_pg,
+                        :user     => $db_user_pg,
+                        :password => $db_pwd_pg,
                         :hostaddr => hostaddr,
                         :sslmode  => $db_sslmode
                     )
