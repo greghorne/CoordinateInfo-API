@@ -185,11 +185,28 @@ puts "traceA"
 
                 if coordinate.db == 'mongo'
                     collection = conn["gadm36"]
-                    puts collection.count()
-                    # response_query = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[longitude_x, latitude_y]}}}})
-                    response_query = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[-95, 35]}}}})
-                    puts response_query.each { |doc| puts doc }
-                    puts response_query[0]
+
+                    response_cursor = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[longitude_x.to_f, latitude_y.to_f]}}}})
+
+                    # some weirdness here; check on how to do it properly
+                    document = ""
+                    puts response_cursor.each { |doc| 
+                        document = doc 
+                        break 
+                    }
+                    puts document['properties']
+
+                    if document
+                        return_json = adjust_response_data(document['properties'])
+                    else
+                        return_json = {}
+                    end
+
+                    return_hash = { :success => 1,
+                                    :results => return_json 
+                                }
+
+                    return JSON.generate(return_hash)
 
 
                 else
