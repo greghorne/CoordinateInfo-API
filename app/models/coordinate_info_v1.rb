@@ -1,4 +1,5 @@
 require "resolv"
+require "pg"
 # require "redis"
 # require "redis-namespace"
 
@@ -54,8 +55,7 @@ class CoordinateInfoV1 < ApplicationRecord
 
     # =========================================
     def self.get_db_conn(db_type)
-puts db_type
-puts "traceA"
+
         case db_type
             when "pg"
                 
@@ -106,7 +106,8 @@ puts "traceA"
                     # conn = Mongo::Connection.new($db_host_mongo, $db_port_mongo).db($db_name_mongo)
                     # conn = Mongo::Connection.new("192.168.1.120", 27017).db("gadm")
 
-                    conn = Mongo::Client.new([ $db_host_mongo], :database => $db_name_mongo)
+                    # conn = Mongo::Client.new([ $db_host_mongo, $db_port_mongo.to_s], :database => $db_name_mongo)
+                    conn = Mongo::Client.new([ "zotac1.ddns.net:27011"], :database => "gadm")
                     return conn
                     
                     # conn = PG::Connection.open(
@@ -128,22 +129,36 @@ puts "traceA"
     # =========================================
 
     # =========================================
-    def self.adjust_response_data(response)
+    def self.adjust_response_data(response, type)
 
         # string manipulation of the query response to json
+        if type
+            response_arr = response[0]["z_world_xy_intersect"].tr('())', '').gsub(/[\"]/,"").split(",")
+            return_json = {
+                :country               => response_arr[1],
 
-        response_arr = response[0]["z_world_xy_intersect"].tr('())', '').gsub(/[\"]/,"").split(",")
-        return_json = {
-            :country               => response_arr[1],
+                :municipality1         => response_arr[2],
+                :municipaltiy_nl1      => response_arr[3],
+                :municipality_nl_type1 => response_arr[4],
 
-            :municipality1         => response_arr[2],
-            :municipaltiy_nl1      => response_arr[3],
-            :municipality_nl_type1 => response_arr[4],
+                :municipality2         => response_arr[6],
+                :municipaltiy_nl2      => response_arr[7],
+                :municipality_nl_type2 => response_arr[8]
+            }
+        else
+            return_json = {
+                :country               => response["NAME_0"],
 
-            :municipality2         => response_arr[6],
-            :municipaltiy_nl2      => response_arr[7],
-            :municipality_nl_type2 => response_arr[8]
-        }
+                :municipality1         => response["NAME_1"],
+                :municipaltiy_nl1      => response["NL_NAME_1"],
+                :municipality_nl_type1 => response["TYPE_1"],
+
+                :municipality2         => response["NAME_2"],
+                :municipaltiy_nl2      => response["NL_NAME_2"],
+                :municipality_nl_type2 => response["TYPE_2"]
+            }
+        end
+
         return return_json
     end
     # =========================================
@@ -190,24 +205,20 @@ puts "traceA"
 
                     # some weirdness here; check on how to do it properly
                     document = ""
-                    puts response_cursor.each { |doc| 
+                    response_cursor.each { |doc| 
                         document = doc 
                         break 
                     }
-                    puts document['properties']
 
                     if document
-                        return_json = adjust_response_data(document['properties'])
+                        return_json = adjust_response_data(document['properties'], false)
                     else
                         return_json = {}
                     end
 
-                    return_hash = { :success => 1,
-                                    :results => return_json 
-                                }
+                    return_hash = { :success => 1, :results => return_json }
 
                     return JSON.generate(return_hash)
-
 
                 else
                     # postgis function z_world_xy_intersects
@@ -215,14 +226,12 @@ puts "traceA"
                     conn.close
 
                     if response_query.num_tuples.to_i === 1
-                        return_json = adjust_response_data(response_query)
+                        return_json = adjust_response_data(response_query, true)
                     else
                         return_json = {}
                     end
 
-                    return_hash = { :success => 1,
-                                    :results => return_json 
-                                }
+                    return_hash = { :success => 1, :results => return_json }
 
                     return JSON.generate(return_hash)
                 end
