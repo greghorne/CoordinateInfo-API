@@ -54,7 +54,8 @@ class CoordinateInfoV1 < ApplicationRecord
 
     # =========================================
     def self.get_db_conn(db_type)
-
+puts db_type
+puts "traceA"
         case db_type
             when "pg"
                 
@@ -91,7 +92,35 @@ class CoordinateInfoV1 < ApplicationRecord
 
             when "mongo"
                 begin
+                    hostaddr = Resolv.getaddress $db_host_mongo
+                rescue
+                    # catch the error but just continue
+                end
 
+                begin
+                    Mongo::Logger.logger.level = ::Logger::FATAL
+                    # puts $db_host_mongo
+                    # puts $db_name_mongo
+                    # puts $db_port_mongo
+                    # puts "start"
+                    # conn = Mongo::Connection.new($db_host_mongo, $db_port_mongo).db($db_name_mongo)
+                    # conn = Mongo::Connection.new("192.168.1.120", 27017).db("gadm")
+
+                    conn = Mongo::Client.new([ $db_host_mongo], :database => $db_name_mongo)
+                    return conn
+                    
+                    # conn = PG::Connection.open(
+                    #     :host     => $db_host_mongo,
+                    #     :port     => $db_port_mongo,
+                    #     :dbname   => $db_name_mongo,
+                    #     :user     => $db_user_mongo,
+                    #     :password => $db_pwd_mongo,
+                    #     :hostaddr => hostaddr,
+                    #     :sslmode  => $db_sslmode
+                    # )
+                rescue
+                    puts client
+                    return false
                 end
 
         end
@@ -125,13 +154,13 @@ class CoordinateInfoV1 < ApplicationRecord
         # ----------------------------------------
         # ----------------------------------------
         # mongo support in progress; reject and exit out
-        if db == "mongo"
-            return_hash = { :success => 0, 
-                :results =>  { msg: "mongo currently not supported" }
-              }
+        # if db == "mongo"
+        #     return_hash = { :success => 0, 
+        #         :results =>  { msg: "mongo currently not supported" }
+        #       }
 
-            return JSON.generate(return_hash)
-        end
+        #     return JSON.generate(return_hash)
+        # end
         # ----------------------------------------
         # ----------------------------------------
 
@@ -154,21 +183,32 @@ class CoordinateInfoV1 < ApplicationRecord
 
             if conn
 
-                # postgis function z_world_xy_intersects
-                response_query = conn.query("select z_world_xy_intersect($1, $2)",[coordinate.longitude_x.to_f, coordinate.latitude_y.to_f])
-                conn.close
+                if coordinate.db == 'mongo'
+                    collection = conn["gadm36"]
+                    puts collection.count()
+                    # response_query = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[longitude_x, latitude_y]}}}})
+                    response_query = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[-95, 35]}}}})
+                    puts response_query.each { |doc| puts doc }
+                    puts response_query[0]
 
-                if response_query.num_tuples.to_i === 1
-                    return_json = adjust_response_data(response_query)
+
                 else
-                    return_json = {}
+                    # postgis function z_world_xy_intersects
+                    response_query = conn.query("select z_world_xy_intersect($1, $2)",[coordinate.longitude_x.to_f, coordinate.latitude_y.to_f])
+                    conn.close
+
+                    if response_query.num_tuples.to_i === 1
+                        return_json = adjust_response_data(response_query)
+                    else
+                        return_json = {}
+                    end
+
+                    return_hash = { :success => 1,
+                                    :results => return_json 
+                                }
+
+                    return JSON.generate(return_hash)
                 end
-
-                return_hash = { :success => 1,
-                                :results => return_json 
-                            }
-
-                return JSON.generate(return_hash)
 
             else
                 return_hash = { :success => 0, 
