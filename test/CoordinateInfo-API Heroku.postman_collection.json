@@ -6,6 +6,151 @@
 	},
 	"item": [
 		{
+			"name": "bad x,y",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cd3eb8ab-03ac-47fc-828f-2621179453db",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"returns success: 0\", function() {",
+							"    pm.expect(jsonData.success).to.equal(0);",
+							"});",
+							"",
+							"pm.test(\"returns invalid lat_y and/or long_x\", function() {",
+							"    pm.expect(jsonData.results.msg).to.equal(\"invalid longitude_x and/or latitude_y\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?latitude_y=315.552727&longitude_x=-200",
+					"host": [
+						"coordinate-info",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"coord_info"
+					],
+					"query": [
+						{
+							"key": "latitude_y",
+							"value": "315.552727"
+						},
+						{
+							"key": "longitude_x",
+							"value": "-200"
+						},
+						{
+							"key": null,
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "india",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "819db492-9421-4f9f-b1c8-b1fbc61ca156",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"returns success: 1\", function() {",
+							"    pm.expect(jsonData.success).to.equal(1);",
+							"});",
+							"pm.test(\"returns West Bengal\", function() {",
+							"    pm.expect(jsonData.results.municipality1).to.equal(\"West Bengal\");",
+							"});",
+							"",
+							"pm.test(\"returns Nadia\", function() {",
+							"    pm.expect(jsonData.results.municipality2).to.equal(\"Nadia\");",
+							"});",
+							"",
+							"pm.test(\"returns \\\"\\\"\", function() {",
+							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(\"\");",
+							"});",
+							"",
+							"pm.test(\"returns \\\"\\\"\", function() {",
+							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(\"\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"returns State\", function() {",
+							"    pm.expect(jsonData.results.municipality_nl_type1).to.equal(\"State\");",
+							"});",
+							"",
+							"pm.test(\"returns District\", function() {",
+							"    pm.expect(jsonData.results.municipality_nl_type2).to.equal(\"District\");",
+							"});",
+							"",
+							"pm.test(\"return India\", function() {",
+							"    pm.expect(jsonData.results.country).to.equal(\"India\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?latitude_y=23.243660&longitude_x=88.445670",
+					"host": [
+						"coordinate-info",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"coord_info"
+					],
+					"query": [
+						{
+							"key": "latitude_y",
+							"value": "23.243660"
+						},
+						{
+							"key": "longitude_x",
+							"value": "88.445670"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "beijing",
 			"event": [
 				{
@@ -227,87 +372,6 @@
 			"response": []
 		},
 		{
-			"name": "india",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "819db492-9421-4f9f-b1c8-b1fbc61ca156",
-						"type": "text/javascript",
-						"exec": [
-							"var jsonData = pm.response.json();",
-							"",
-							"pm.test(\"returns success: 1\", function() {",
-							"    pm.expect(jsonData.success).to.equal(1);",
-							"});",
-							"pm.test(\"returns West Bengal\", function() {",
-							"    pm.expect(jsonData.results.municipality1).to.equal(\"West Bengal\");",
-							"});",
-							"",
-							"pm.test(\"returns Nadia\", function() {",
-							"    pm.expect(jsonData.results.municipality2).to.equal(\"Nadia\");",
-							"});",
-							"",
-							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(\"\");",
-							"});",
-							"",
-							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(\"\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"returns State\", function() {",
-							"    pm.expect(jsonData.results.municipality_nl_type1).to.equal(\"State\");",
-							"});",
-							"",
-							"pm.test(\"returns District\", function() {",
-							"    pm.expect(jsonData.results.municipality_nl_type2).to.equal(\"District\");",
-							"});",
-							"",
-							"pm.test(\"return India\", function() {",
-							"    pm.expect(jsonData.results.country).to.equal(\"India\");",
-							"});",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?latitude_y=23.243660&longitude_x=88.445670",
-					"host": [
-						"coordinate-info",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"coord_info"
-					],
-					"query": [
-						{
-							"key": "latitude_y",
-							"value": "23.243660"
-						},
-						{
-							"key": "longitude_x",
-							"value": "88.445670"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "yemen",
 			"event": [
 				{
@@ -444,7 +508,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?latitude_y=15.552727&longitude_x=48.516388",
+					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?db=mongo&latitude_y=15.552727&longitude_x=48.516388",
 					"host": [
 						"coordinate-info",
 						"herokuapp",
@@ -456,6 +520,10 @@
 						"coord_info"
 					],
 					"query": [
+						{
+							"key": "db",
+							"value": "mongo"
+						},
 						{
 							"key": "latitude_y",
 							"value": "15.552727"
@@ -463,70 +531,6 @@
 						{
 							"key": "longitude_x",
 							"value": "48.516388"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "bad x,y",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "4f5ffc46-0e1b-4312-8dc7-0f232905b804",
-						"type": "text/javascript",
-						"exec": [
-							"var jsonData = pm.response.json();",
-							"",
-							"pm.test(\"returns success: 0\", function() {",
-							"    pm.expect(jsonData.success).to.equal(0);",
-							"});",
-							"",
-							"pm.test(\"returns invalid lat_y and/or long_x\", function() {",
-							"    pm.expect(jsonData.results.msg).to.equal(\"invalid lat_y and/or long_x\");",
-							"});",
-							"",
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
-							"});",
-							"",
-							"",
-							"",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?latitude_y=315.552727&longitude_x=-200",
-					"host": [
-						"coordinate-info",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"coord_info"
-					],
-					"query": [
-						{
-							"key": "latitude_y",
-							"value": "315.552727"
-						},
-						{
-							"key": "longitude_x",
-							"value": "-200"
-						},
-						{
-							"key": null,
-							"value": null
 						}
 					]
 				}

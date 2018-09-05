@@ -205,7 +205,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "0.0.0.0:3000/api/v1/coord_info?longitude_x=-95.992775&latitude_y=36.153980",
+					"raw": "0.0.0.0:3000/api/v1/coord_info?db=mongo&longitude_x=-95.992775&latitude_y=36.153980",
 					"host": [
 						"0",
 						"0",
@@ -219,6 +219,10 @@
 						"coord_info"
 					],
 					"query": [
+						{
+							"key": "db",
+							"value": "mongo"
+						},
 						{
 							"key": "longitude_x",
 							"value": "-95.992775"
@@ -371,7 +375,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "0.0.0.0:3000/api/v1/coord_info?latitude_y=15.552727&longitude_x=48.516388",
+					"raw": "0.0.0.0:3000/api/v1/coord_info?db=pg&latitude_y=15.552727&longitude_x=48.516388",
 					"host": [
 						"0",
 						"0",
@@ -385,6 +389,10 @@
 						"coord_info"
 					],
 					"query": [
+						{
+							"key": "db",
+							"value": "pg"
+						},
 						{
 							"key": "latitude_y",
 							"value": "15.552727"
@@ -454,7 +462,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "0.0.0.0:3000/api/v1/coord_info?latitude_y=15.552727&longitude_x=48.516388",
+					"raw": "0.0.0.0:3000/api/v1/coord_info?db=mongo&latitude_y=15.552727&longitude_x=48.516388",
 					"host": [
 						"0",
 						"0",
@@ -468,6 +476,10 @@
 						"coord_info"
 					],
 					"query": [
+						{
+							"key": "db",
+							"value": "mongo"
+						},
 						{
 							"key": "latitude_y",
 							"value": "15.552727"
