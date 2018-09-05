@@ -153,7 +153,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8bdd8786-1ec1-422c-a10e-8728c3b68a02",
+						"id": "125cc0ec-7f5d-4f2b-94ff-e9d354743716",
 						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
@@ -170,12 +170,12 @@
 							"    pm.expect(jsonData.results.municipality2).to.equal(\"Tulsa\");",
 							"});",
 							"",
-							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(\"\");",
+							"pm.test(\"returns \\\"null\", function() {",
+							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(null);",
 							"});",
 							"",
-							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(\"\");",
+							"pm.test(\"returns \\\"null\", function() {",
+							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(null);",
 							"});",
 							"",
 							"",
