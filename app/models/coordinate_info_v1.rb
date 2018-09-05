@@ -67,7 +67,6 @@ class CoordinateInfoV1 < ApplicationRecord
                 # end
 
                 # resolve the host ip address if necessary; :hostaddr (ip) overrides :host (name)
-
                 begin
                     hostaddr = Resolv.getaddress $db_host_pg
                 rescue
@@ -99,15 +98,17 @@ class CoordinateInfoV1 < ApplicationRecord
 
                 begin
                     Mongo::Logger.logger.level = ::Logger::FATAL
-                    # puts $db_host_mongo
-                    # puts $db_name_mongo
-                    # puts $db_port_mongo
-                    # puts "start"
-                    # conn = Mongo::Connection.new($db_host_mongo, $db_port_mongo).db($db_name_mongo)
-                    # conn = Mongo::Connection.new("192.168.1.120", 27017).db("gadm")
 
-                    # conn = Mongo::Client.new([ $db_host_mongo, $db_port_mongo.to_s], :database => $db_name_mongo)
-                    conn = Mongo::Client.new([ "zotac1.ddns.net:27011" ], :database =>  $db_name_mongo.to_s)
+                    if hostaddr
+                        conn_string = hostaddr.to_s + ":" + $db_port_mongo.to_s
+                    else
+                        conn_string = $db_host_mongo.to_s + ":" + $db_port_mongo.to_s
+                    end
+
+                    puts "in......"
+                    conn = Mongo::Client.new([conn_string], :database => $db_name_mongo, :user => $db_user_mongo, :password => $db_pwd_mongo)
+                    puts conn
+                    puts "out....."
                     return conn
                     
                     # conn = PG::Connection.open(
@@ -120,7 +121,6 @@ class CoordinateInfoV1 < ApplicationRecord
                     #     :sslmode  => $db_sslmode
                     # )
                 rescue
-                    puts client
                     return false
                 end
 
