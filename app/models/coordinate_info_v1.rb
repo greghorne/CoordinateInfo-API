@@ -107,7 +107,7 @@ class CoordinateInfoV1 < ApplicationRecord
                     # conn = Mongo::Connection.new("192.168.1.120", 27017).db("gadm")
 
                     # conn = Mongo::Client.new([ $db_host_mongo, $db_port_mongo.to_s], :database => $db_name_mongo)
-                    conn = Mongo::Client.new([ "zotac1.ddns.net:27011"], :database => "gadm")
+                    conn = Mongo::Client.new([ "zotac1.ddns.net:27011" ], :database =>  $db_name_mongo.to_s)
                     return conn
                     
                     # conn = PG::Connection.open(
@@ -186,21 +186,19 @@ class CoordinateInfoV1 < ApplicationRecord
         # check validity of x,y coordinates
         if !coordinate.valid_xy
 
-            return_hash = { :success => 0, 
-                            :results =>  { msg: "invalid longitude_x and/or latitude_y" }
-                          }
-
+            return_hash = { :success => 0,  :results =>  { msg: "invalid longitude_x and/or latitude_y" } }
             return JSON.generate(return_hash)
 
         else
-            # get db connection and execute query-function
+            # get db connection
             conn = get_db_conn(coordinate.db)
 
             if conn
 
+                return_json = {}
                 if coordinate.db == 'mongo'
-                    collection = conn["gadm36"]
 
+                    collection = conn["gadm36"]
                     response_cursor = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[longitude_x.to_f, latitude_y.to_f]}}}})
 
                     # some weirdness here; check on how to do it properly
@@ -210,37 +208,26 @@ class CoordinateInfoV1 < ApplicationRecord
                         break 
                     }
 
-                    if document
+                    if document 
                         return_json = adjust_response_data(document['properties'], false)
-                    else
-                        return_json = {}
                     end
 
-                    return_hash = { :success => 1, :results => return_json }
-
-                    return JSON.generate(return_hash)
-
                 else
+
                     # postgis function z_world_xy_intersects
                     response_query = conn.query("select z_world_xy_intersect($1, $2)",[coordinate.longitude_x.to_f, coordinate.latitude_y.to_f])
                     conn.close
 
                     if response_query.num_tuples.to_i === 1
                         return_json = adjust_response_data(response_query, true)
-                    else
-                        return_json = {}
                     end
 
-                    return_hash = { :success => 1, :results => return_json }
-
-                    return JSON.generate(return_hash)
                 end
+                return_hash = { :success => 1, :results => return_json }
+                return JSON.generate(return_hash)
 
             else
-                return_hash = { :success => 0, 
-                    :results =>  { msg: "database connect error" }
-                  }
-
+                return_hash = { :success => 0, :results =>  { msg: "database connect error" } }
                 return JSON.generate(return_hash)
 
             end
