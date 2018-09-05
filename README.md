@@ -88,7 +88,7 @@ Example API Calls:
             (India, West Bengal State, Nadia District)
 
 
-    - example https://coordinate-info.herokuapp.com/api/v1/db=mongo&coord_info?longitude_x=-95.992775&latitude_y=36.153980
+    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?db=mongo&longitude_x=-95.992775&latitude_y=36.153980
 
         returns JSON (intersects location in Tulsa, OK)
 
