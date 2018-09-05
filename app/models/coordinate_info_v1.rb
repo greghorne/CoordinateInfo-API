@@ -59,7 +59,6 @@ class CoordinateInfoV1 < ApplicationRecord
         case db_type
             when "pg"
                 
-                # try and see if i can cache the hostaddr
                 # if $redis.get($db_host_pg)
                 #     puts "found"
                 # else
@@ -105,21 +104,9 @@ class CoordinateInfoV1 < ApplicationRecord
                         conn_string = $db_host_mongo.to_s + ":" + $db_port_mongo.to_s
                     end
 
-                    puts "in......"
                     conn = Mongo::Client.new([conn_string], :database => $db_name_mongo, :user => $db_user_mongo, :password => $db_pwd_mongo)
-                    puts conn
-                    puts "out....."
                     return conn
-                    
-                    # conn = PG::Connection.open(
-                    #     :host     => $db_host_mongo,
-                    #     :port     => $db_port_mongo,
-                    #     :dbname   => $db_name_mongo,
-                    #     :user     => $db_user_mongo,
-                    #     :password => $db_pwd_mongo,
-                    #     :hostaddr => hostaddr,
-                    #     :sslmode  => $db_sslmode
-                    # )
+
                 rescue
                     return false
                 end
@@ -165,20 +152,6 @@ class CoordinateInfoV1 < ApplicationRecord
 
     # =========================================
     def self.coord_info_do(longitude_x, latitude_y, db, key)
-
-        # ----------------------------------------
-        # ----------------------------------------
-        # mongo support in progress; reject and exit out
-        # if db == "mongo"
-        #     return_hash = { :success => 0, 
-        #         :results =>  { msg: "mongo currently not supported" }
-        #       }
-
-        #     return JSON.generate(return_hash)
-        # end
-        # ----------------------------------------
-        # ----------------------------------------
-
 
         # pass request params and create coordinate object
         coordinate = Coordinate.new(longitude_x, latitude_y, key, db)
