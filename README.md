@@ -32,9 +32,10 @@ Tech Stack:
 
 	-   Ruby 2.5.1p57 (2018-03-09 revision 63029) [i686-linux]
 	-   Rails 5.2.0
-	-   Development Machine - Vagrant init ubuntu/trusty32 - (3.13.0-110-generic)
+	-   Development Machine - Vagrant ubuntu/trusty32 - (3.13.0-110-generic)
 	-   Vagrant Box setup script: https://github.com/greghorne/VagrantRailsBox/blob/master/setup.sh
 	-   PostgreSQL 9.4 with PostGIS 2.1.4 - Database server resides on a Raspberry Pi 2 Model B
+	-   mongoDB v4.0.1 executing as a Docker 18.06.1-ce Container on an Ubuntu 16.0.4 - Celeron 2957u
     -   API test with Postman (see test folder for JSON test file)
     -   Deployed to Heroku:  https://coordinate-info.herokuapp.com
  
@@ -45,7 +46,7 @@ API Usage:
 
         longitude_x = type: float 
         latitude_y  = type: float 
-        db     = type: string ==> pg (default) or mongo (pending implementation)
+        db     = type: string ==> pg (default) or mongo 
         key    = type: string ==> authorization key     (pending implementation)
 
     - Return value is JSON
@@ -87,7 +88,7 @@ Example API Calls:
             (India, West Bengal State, Nadia District)
 
 
-    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=-95.992775&latitude_y=36.153980
+    - example https://coordinate-info.herokuapp.com/api/v1/db=mongo&coord_info?longitude_x=-95.992775&latitude_y=36.153980
 
         returns JSON (intersects location in Tulsa, OK)
 
