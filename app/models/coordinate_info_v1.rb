@@ -172,6 +172,7 @@ class CoordinateInfoV1 < ApplicationRecord
                 if coordinate.db == 'mongo'
 
                     collection = conn["gadm36"]
+
                     response_cursor = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[longitude_x.to_f, latitude_y.to_f]}}}})
 
                     # some weirdness here; check on how to do it properly

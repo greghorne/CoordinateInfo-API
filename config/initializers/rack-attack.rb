@@ -2,7 +2,7 @@ class Rack::Attack
 
     Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new 
 
-    throttle('req/ip', :limit => 100, :period => 60.seconds) do |req|
+    throttle('req/ip', :limit => 100, :period => 120.seconds) do |req|
         Rails.logger.error("Rack::Attack Too many request attempts from IP: #{req.ip}; Limit 100 requests per minute.")
         req.ip 
     end
