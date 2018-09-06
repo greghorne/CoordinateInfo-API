@@ -32,6 +32,8 @@ Tech Stack:
 
 API Usage:
 
+    - **Requests are throttled to 200 requests per 5 minutes per ip.**
+
     - https://coordinate-info.herokuapp.com/api/v1?longitude_x=float&latitude_y=float&db=db_type&key=optional
 
         longitude_x = type: float 
