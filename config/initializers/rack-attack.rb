@@ -13,7 +13,7 @@ class Rack::Attack
     #     req.ip
     # end
 
-    Rack::Attack.throttle('req/ip', :limit => 200, :period => 5.minutes) do |req|
+    Rack::Attack.throttle('req/ip', :limit => 200, :period => 5.minute) do |req|
         req.ip
     end
 
