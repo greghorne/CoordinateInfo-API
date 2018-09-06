@@ -29,6 +29,8 @@ gem 'rest-client'
 gem 'redis'
 gem 'redis-namespace'
 
+gem 'rack-attack'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
