@@ -2,26 +2,32 @@
 
 Scope:
 
-	-   Rails 5 API
+	-   Rails 5.2 API
 	-   Given an x, y coordinate, return country and municipality information that intersects the coordinates.
 
 
 Data Source:
 
 	-   GADM dataset of Global Administrative Area - www.gadm.org
-	-   File version 2.8 (November 2015)
+	-   File version 3.6 (June 2018 - gadm36_shp.zip)
 
 
 Tech Stack:
 
-	-   Ruby 2.5.1p57 (2018-03-09 revision 63029) [i686-linux]
-	-   Rails 5.2.0
 	-   Development Machine - Vagrant ubuntu/trusty32 - (3.13.0-110-generic)
 	-   Vagrant Box setup script: https://github.com/greghorne/VagrantRailsBox/blob/master/setup.sh
-	-   PostgreSQL 9.4 with PostGIS 2.1.4 - Database server resides on a Raspberry Pi 2 Model B
-	-   mongoDB v4.0.1 executing as a Docker 18.06.1-ce Container on an Ubuntu 16.0.4 - Celeron 2957u
-    -   API test with Postman (see test folder for JSON test file)
-    -   Deployed to Heroku:  https://coordinate-info.herokuapp.com
+
+	-   Ruby 2.5.1p57 (2018-03-09 revision 63029) [i686-linux]
+	-   Rails 5.2.0
+	
+	-   PostgreSQL 9.4 with PostGIS 2.1.4 - Resides on a Raspberry Pi 2 Model B
+	-   mongoDB v4.0.1 executing as a Docker 18.06.1-ce Container - Resides on Ubuntu 16.0.4 - Celeron 2957u
+	-   Note: Same datasets residing in different databases on different machines
+	   
+    -   API tested with Postman (see 'test' folder for JSON test files)
+       
+    -   Deployed to Heroku (free tier):  https://coordinate-info.herokuapp.com
+    -   Initial API call may require the API to spin-up from sleep on Heroku
  
 
 API Usage:
