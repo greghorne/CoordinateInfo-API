@@ -120,7 +120,7 @@ class CoordinateInfoV1 < ApplicationRecord
 
         # string manipulation of the query response to json
         if type
-            response_arr = response[0]["z_world_xy_intersect"].tr('())', '').gsub(/[\"]/,"").split(",")
+            response_arr = response[0]["z_gadm36_xy_intersect"].tr('())', '').gsub(/[\"]/,"").split(",")
             return_json = {
                 :country               => response_arr[1],
 
@@ -188,7 +188,7 @@ class CoordinateInfoV1 < ApplicationRecord
                 else
 
                     # postgis function z_world_xy_intersects
-                    response_query = conn.query("select z_world_xy_intersect($1, $2)",[coordinate.longitude_x.to_f, coordinate.latitude_y.to_f])
+                    response_query = conn.query("select z_gadm36_xy_intersect($1, $2)",[coordinate.longitude_x.to_f, coordinate.latitude_y.to_f])
                     conn.close
 
                     if response_query.num_tuples.to_i === 1
