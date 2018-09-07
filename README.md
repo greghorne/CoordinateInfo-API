@@ -22,24 +22,23 @@ Tech Stack:
 	
 	-   PostgreSQL 9.4 with PostGIS 2.1.4 - Resides on a Raspberry Pi 2 Model B
 	-   mongoDB v4.0.1 executing as a Docker 18.06.1-ce Container - Resides on Ubuntu 16.0.4 - Celeron 2957u
-	-   Note: Same datasets residing in different databases on different machines
+	-   Note: Same dataset residing in different databases on different machines
 	   
     -   API tested with Postman (see 'test' folder for JSON test files)
        
     -   Deployed to Heroku (free tier):  https://coordinate-info.herokuapp.com
-    -   Initial API call may require the API to spin-up from sleep on Heroku
+    -   Note: Initial API call may require the API to spin-up from sleep on Heroku
  
 
 API Usage:
 
-    - **Requests are throttled to 100 requests per 2 minutes per ip.**
+    - Requests are throttled to 100 requests per 2 minutes per ip.
 
     - https://coordinate-info.herokuapp.com/api/v1?longitude_x=float&latitude_y=float&db=db_type&key=optional
 
         longitude_x = type: float 
         latitude_y  = type: float 
         db     = type: string ==> pg (default) or mongo 
-        key    = type: string ==> authorization key     (pending implementation)
 
     - Return value is JSON
         {
