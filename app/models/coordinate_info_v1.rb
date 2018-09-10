@@ -58,18 +58,18 @@ class CoordinateInfoV1 < ApplicationRecord
 
         case db_type
             when "pg"
-                
-                # if $redis.get($db_host_pg)
-                #     puts "found"
-                # else
-                #     puts "not found"
-                # end
 
-                # resolve the host ip address if necessary; :hostaddr (ip) overrides :host (name)
-                begin
+                # the following redis statemetns is to just play aroundd
+                # and experiment with redis.
+                if $redis.get($db_host_pg)
+                    hostaddr = $redis.get($db_host_pg)
+                    puts "found =====>"
+                else
                     hostaddr = Resolv.getaddress $db_host_pg
-                rescue
-                    # catch the error but just continue
+                    if hostaddr 
+                        $redis.set($db_host_pg, hostaddr)
+                        puts "not found <====="
+                    end
                 end
 
                 begin
