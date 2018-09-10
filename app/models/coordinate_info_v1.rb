@@ -56,21 +56,27 @@ class CoordinateInfoV1 < ApplicationRecord
     # =========================================
     def self.get_db_conn(db_type)
 
+        if db_type == "pg"
+            host = $db_host_pg
+        else
+            host = $db_host_mongo
+        end
+
+        # the following redis statemetns is to just play aroundd
+        # and experiment with redis.
+        if $redis.get(host)
+            hostaddr = $redis.get(host)
+            puts "found =====>"
+        else
+            hostaddr = Resolv.getaddress host
+            if hostaddr 
+                $redis.set($db_host_pg, hostaddr)
+                puts "not found <====="
+            end
+        end
+
         case db_type
             when "pg"
-
-                # the following redis statemetns is to just play aroundd
-                # and experiment with redis.
-                if $redis.get($db_host_pg)
-                    hostaddr = $redis.get($db_host_pg)
-                    puts "found =====>"
-                else
-                    hostaddr = Resolv.getaddress $db_host_pg
-                    if hostaddr 
-                        $redis.set($db_host_pg, hostaddr)
-                        puts "not found <====="
-                    end
-                end
 
                 begin
                     conn = PG::Connection.open(
