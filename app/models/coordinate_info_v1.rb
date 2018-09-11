@@ -3,7 +3,7 @@ require "pg"
 require "redis"
 require "redis-namespace"
 
-$redis = Redis::Namespace.new("redis_hostnames", :redis => Redis.new)
+# $redis = Redis::Namespace.new("redis_hostnames", :redis => Redis.new)
 
 class CoordinateInfoV1 < ApplicationRecord
 
