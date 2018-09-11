@@ -19,10 +19,11 @@ Tech Stack:
 
 	-   Ruby 2.5.1p57 (2018-03-09 revision 63029) [i686-linux]
 	-   Rails 5.2.1
+    -   Redis 4.0.11
 	
 	-   PostgreSQL 9.4 with PostGIS 2.1.4 - Resides on a Raspberry Pi 2 Model B
 	-   mongoDB v4.0.1 executing as a Docker 18.06.1-ce Container - Resides on Ubuntu 16.0.4 - Celeron 2957u
-	-   Note: Same dataset residing in different databases on different machines
+	-   (Note: Same dataset residing in different databases on different machines)
 	   
     -   API tested with Postman (see 'test' folder for JSON test files)
        
