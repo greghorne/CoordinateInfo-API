@@ -62,8 +62,8 @@ class CoordinateInfoV1 < ApplicationRecord
             host = $db_host_mongo
         end
 
-        # the following redis statemetns is to just play around and experiment with.
-        # storing/retrieving host's ip
+
+        # redis - storing/retrieving host's ip
         if $redis.get(host)
             hostaddr = $redis.get(host)
             puts "found =====>"
@@ -71,7 +71,7 @@ class CoordinateInfoV1 < ApplicationRecord
             hostaddr = Resolv.getaddress host
             if hostaddr 
                 $redis.set(host, hostaddr)
-                $redis.expire(host, 60)
+                $redis.expire(host, 300)
                 puts "not found <====="
             end
         end
