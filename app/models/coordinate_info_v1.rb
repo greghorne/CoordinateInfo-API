@@ -62,8 +62,8 @@ class CoordinateInfoV1 < ApplicationRecord
             host = $db_host_mongo
         end
 
-        # the following redis statemetns is to just play aroundd
-        # and experiment with redis.
+        # the following redis statemetns is to just play around and experiment with.
+        # storing/retrieving host's ip
         if $redis.get(host)
             hostaddr = $redis.get(host)
             puts "found =====>"
