@@ -4,4 +4,4 @@ require_relative 'application'
 # Initialize the Rails application.
 Rails.application.initialize!
 
-ENV["REDISTOGO_URL"] = 'redis://@localhost:6789' 
+ENV["REDISTOGO_URL"] = 'redis://@localhost:10126' 
