@@ -87,6 +87,6 @@ Rails.application.configure do
   config.cache_store = :redis_cache_store, {url: "redis://redistogo:195e04256bbc1fa6201783d21cef09c9@spinyfin.redistogo.com:10126/"}
   
 
-  # uri = ENV["REDISTOGO_URL"] || "redis://localhost:6379/"
-  # $redis = Redis.new(:url => uri)
+  uri = ENV["REDISTOGO_URL"] || "redis://localhost:6379/"
+  $redis = Redis.new(:url => uri)
 end
