@@ -1,7 +1,7 @@
 require "resolv"
 require "pg"
-# require "redis"
-# require "redis-namespace"
+require "redis"
+require "redis-namespace"
 
 $redis = Redis::Namespace.new("redis_hostnames", :redis => Redis.new)
 
@@ -70,7 +70,8 @@ class CoordinateInfoV1 < ApplicationRecord
         else
             hostaddr = Resolv.getaddress host
             if hostaddr 
-                $redis.set($db_host_pg, hostaddr)
+                $redis.set(host, hostaddr)
+                $redis.expire(host, 60)
                 puts "not found <====="
             end
         end
