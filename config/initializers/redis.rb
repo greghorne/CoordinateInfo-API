@@ -7,5 +7,5 @@
 
 # $redis = Redis::Namespace.new("coord_info", :redis => Redis.new, :host => '192.168.1.120')
 
-uri = URI.parse(ENV["REDISTOGO_URL"])
-$redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+uri = ENV["REDISTOGO_URL"] || "redis://localhost:6379/"
+$redis = Redis.new(:url => uri)
