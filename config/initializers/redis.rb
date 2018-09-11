@@ -6,3 +6,6 @@
 # $redis = Redis.new(host: "192.168.1.120", port: 6379, db: 15)
 
 # $redis = Redis::Namespace.new("coord_info", :redis => Redis.new, :host => '192.168.1.120')
+
+uri = URI.parse(ENV["REDISTOGO_URL"])
+REDIS = Redis.new(:host => uri.host, :port => uri.port)
