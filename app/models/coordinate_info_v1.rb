@@ -64,13 +64,11 @@ class CoordinateInfoV1 < ApplicationRecord
         # redis - storing/retrieving host's ip
         if $redis.get(host)
             hostaddr = $redis.get(host)
-            puts "found =====>"
         else
             hostaddr = Resolv.getaddress host
             if hostaddr 
                 $redis.set(host, hostaddr)
                 $redis.expire(host, 300)
-                puts "not found <====="
             end
         end
 
