@@ -21,11 +21,10 @@ Tech Stack:
 	-   Rails 5.2.1
     -   Redis 4.0.11
 	
-	-   __PostgreSQL 9.4 with PostGIS 2.1.4__
+	-   PostgreSQL 9.4 with PostGIS 2.1.4
 	    Executing on a Raspberry Pi 2 Model B running Raspbian-Jessie
-	-   __MongoDB v4.0.1__
+	-   MongoDB v4.0.1
 	    Executing as a Docker 18.06.1-ce container on a Raspberry Pi 3 running HypriotOS x64
-        
 	-   (Note: PostgreSQl & MongoDB contain the same gadm36 dataset)
 	   
     -   API tested with Postman (see 'test' folder for JSON test files)
