@@ -2,7 +2,7 @@
 
 Scope:
 
-	-   Rails 5.2 API
+	-   Rails 5.2.1 API
 	-   Given an x, y coordinate, return country and municipality information that intersects the coordinates.
 
 
@@ -21,14 +21,17 @@ Tech Stack:
 	-   Rails 5.2.1
     -   Redis 4.0.11
 	
-	-   PostgreSQL 9.4 with PostGIS 2.1.4 - Resides on a Raspberry Pi 2 Model B
-	-   mongoDB v4.0.1 executing as a Docker 18.06.1-ce Container - Resides on Ubuntu 16.0.4 - Celeron 2957u
-	-   (Note: Same dataset residing in different databases on different machines)
+	-   __PostgreSQL 9.4 with PostGIS 2.1.4__
+	    Executing on a Raspberry Pi 2 Model B running Raspbian-Jessie
+	-   __MongoDB v4.0.1__
+	    Executing as a Docker 18.06.1-ce container on a Raspberry Pi 3 running HypriotOS x64
+        
+	-   (Note: PostgreSQl & MongoDB contain the same gadm36 dataset)
 	   
     -   API tested with Postman (see 'test' folder for JSON test files)
        
     -   Deployed to Heroku (free tier):  https://coordinate-info.herokuapp.com
-    -   Note: Initial API call may require the API to spin-up from sleep on Heroku
+    -   (Note: Initial API call may require the API to spin-up from sleep on Heroku)
  
 
 API Usage:
