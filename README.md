@@ -41,7 +41,7 @@ API Usage:
 
         longitude_x = type: float 
         latitude_y  = type: float 
-        db     = type: string ==> pg (default) or mongo 
+        db = type string ==> pg (default) or mongo 
 
     - Return value is JSON
         {
