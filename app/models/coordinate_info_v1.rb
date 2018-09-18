@@ -133,7 +133,11 @@ class CoordinateInfoV1 < ApplicationRecord
 
                 :municipality2         => response_arr[6],
                 :municipaltiy_nl2      => response_arr[7],
-                :municipality_nl_type2 => response_arr[8]
+                :municipality_nl_type2 => response_arr[8],
+
+                :municipality3         => response_arr[10],
+                :municipaltiy_nl3      => response_arr[11],
+                :municipality_nl_type3 => response_arr[12]
             }
         else
             return_json = {
@@ -145,7 +149,12 @@ class CoordinateInfoV1 < ApplicationRecord
 
                 :municipality2         => response["NAME_2"],
                 :municipaltiy_nl2      => response["NL_NAME_2"],
-                :municipality_nl_type2 => response["TYPE_2"]
+                :municipality_nl_type2 => response["TYPE_2"],
+
+                :municipality3         => response["NAME_3"],
+                :municipaltiy_nl3      => response["NL_NAME_3"],
+                :municipality_nl_type3 => response["TYPE_3"]
+
             }
         end
 
