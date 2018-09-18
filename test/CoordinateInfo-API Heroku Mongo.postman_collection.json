@@ -79,7 +79,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "819db492-9421-4f9f-b1c8-b1fbc61ca156",
+						"id": "a1025036-5b71-4134-83dc-f5a21e6792fe",
 						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
@@ -96,11 +96,11 @@
 							"});",
 							"",
 							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(\"\");",
+							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(null);",
 							"});",
 							"",
 							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(\"\");",
+							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(null);",
 							"});",
 							"",
 							"",
@@ -310,7 +310,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8bdd8786-1ec1-422c-a10e-8728c3b68a02",
+						"id": "997f0726-669b-4e38-882c-5972106e9dda",
 						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
@@ -328,11 +328,11 @@
 							"});",
 							"",
 							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(\"\");",
+							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(null);",
 							"});",
 							"",
 							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(\"\");",
+							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(null);",
 							"});",
 							"",
 							"",
