@@ -54,6 +54,9 @@ API Usage:
                 municipality2:         municipality name in English
                 municipality_nl2:      municipality name in native language
                 municipality_nl_type2: municipality type in native language spelled in English
+                municipality3:         municipality name in English
+                municipality_nl3:      municipality name in native language
+                municipality_nl_type3: municipality type in native language spelled in English
             }
         }
 
@@ -74,12 +77,15 @@ Example API Calls:
                 "municipality_nl_type1": "State",
                 "municipality2": "Nadia",
                 "municipaltiy_nl2": "",
-                "municipality_nl_type2": "District"
+                "municipality_nl_type2": "District",
+		        "municipality3": "Ranaghat",
+        		"municipaltiy_nl3": "",
+		        "municipality_nl_type3": "Taluk"
             }
         }
 
         read as:
-            (India, West Bengal State, Nadia District)
+            (India, West Bengal State, Nadia District, Ranaghat Taluk)
 
 
     - example https://coordinate-info.herokuapp.com/api/v1/coord_info?db=mongo&longitude_x=-95.992775&latitude_y=36.153980
@@ -95,7 +101,10 @@ Example API Calls:
                 "municipality_nl_type1": "State",
                 "municipality2": "Tulsa",
                 "municipaltiy_nl2": "",
-                "municipality_nl_type2": "County"
+                "municipality_nl_type2": "County",
+		        "municipality3": null,
+        		"municipaltiy_nl3": null,
+		        "municipality_nl_type3": null
             }
         }
 
@@ -116,7 +125,10 @@ Example API Calls:
                 "municipality_nl_type1": "Zhíxiáshì",
                 "municipality2": "Beijing",
                 "municipaltiy_nl2": "北京|北京",
-                "municipality_nl_type2": "Zhíxiáshì"
+                "municipality_nl_type2": "Zhíxiáshì",
+		        "municipality3": "Beijing",
+        		"municipaltiy_nl3": "北京|北京",
+		        "municipality_nl_type3": "Zhíxiáshì"
             }
         }
 
@@ -160,7 +172,10 @@ Example API Calls:
                 "municipality_nl_type1": "Muhafazah",
                 "municipality2": "Wadi Al Ayn",
                 "municipaltiy_nl2": "وادي العين وحوره",
-                "municipality_nl_type2": "Muderiah"
+                "municipality_nl_type2": "Muderiah",
+                "municipality3": null,
+                "municipaltiy_nl3": null,
+                "municipality_nl_type3": null
             }
         }
 
