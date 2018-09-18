@@ -176,15 +176,10 @@ class CoordinateInfoV1 < ApplicationRecord
 
                     collection = conn["gadm36"]
 
-                    response_cursor = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[longitude_x.to_f, latitude_y.to_f]}}}})
+                    response_cursor = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[longitude_x.to_f, latitude_y.to_f]}}}}).to_a
                     conn.close
 
-                    # some weirdness here; check on how to do it properly
-                    document = ""
-                    response_cursor.each { |doc| 
-                        document = doc 
-                        break 
-                    }
+                    document = response_cursor[0]
 
                     if document 
                         return_json = adjust_response_data(document['properties'], false)
