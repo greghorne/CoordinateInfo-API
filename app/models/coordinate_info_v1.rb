@@ -52,13 +52,14 @@ class CoordinateInfoV1 < ApplicationRecord
 
     # valid values are :primary, :primary_preferred, :secondary, :secondary_preferred and :nearest
     $conn_mongo = Mongo::Client.new([conn_string], 
-                                    :database => $db_name_mongo, 
-                                    :user => $db_user_mongo, 
-                                    :password => $db_pwd_mongo, 
-                                    :read => { :mode => :secondary_preferred }, 
+                                    :database       => $db_name_mongo, 
+                                    :user           => $db_user_mongo, 
+                                    :password       => $db_pwd_mongo, 
+                                    :read           => { :mode => :secondary_preferred }, 
+                                    :ssl            => true,
                                     :max_idles_time => 10,
-                                    :min_pool_size => 2,
-                                    :max_pool_size => 10)
+                                    :min_pool_size  => 2,
+                                    :max_pool_size  => 10)
     # =========================================
 
 
@@ -201,6 +202,7 @@ class CoordinateInfoV1 < ApplicationRecord
                 end
 
             end
+
             return_hash = { :success => 1, :results => return_json }
             return JSON.generate(return_hash)
 
