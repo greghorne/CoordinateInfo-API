@@ -20,6 +20,7 @@ class CoordinateInfoV1 < ApplicationRecord
 
     # =========================================
     # create pg connection
+    # =========================================
     begin
         hostaddr = Resolv.getaddress $db_host_mongo
     rescue # catch the error but just continue
@@ -39,6 +40,7 @@ class CoordinateInfoV1 < ApplicationRecord
 
     # =========================================
     # create mongodb connection pool
+    # =========================================
     begin
         hostaddr = Resolv.getaddress $db_host_mongo
     rescue # catch the error but just continue
@@ -59,6 +61,8 @@ class CoordinateInfoV1 < ApplicationRecord
                                     :min_pool_size  => 2,
                                     :max_pool_size  => 10)
     # =========================================
+
+
 
 
     # =========================================
@@ -95,15 +99,22 @@ class CoordinateInfoV1 < ApplicationRecord
     # =========================================
 
     # =========================================
+    #
+    # deprecated this function which takes a hostname and and resolves the hostaddr (ip)
+    # now, a pg connection is being left open and mongo is using a connection pool
+    # instead of opening/closing a connection per api request
+    # speed difference is enomous completing requests in about 1/3 of the time
+    # later, check pooling on pg
+    #
     # def self.get_db_conn(db_type)
-
+    #
     #     if db_type == "pg"
     #         host = $db_host_pg
     #     else
     #         host = $db_host_mongo
     #     end
-
-
+    #
+    #
     #     # redis - storing/retrieving host's ip
     #     if $redis.get(host)
     #         hostaddr = $redis.get(host)
@@ -114,9 +125,10 @@ class CoordinateInfoV1 < ApplicationRecord
     #             $redis.expire(host, 300)
     #         end
     #     end
-
+    #
     # end
     # =========================================
+
 
     # =========================================
     def self.adjust_response_data(response, type)
@@ -154,7 +166,6 @@ class CoordinateInfoV1 < ApplicationRecord
                 :municipality3         => response["NAME_3"],
                 :municipaltiy_nl3      => response["NL_NAME_3"],
                 :municipality_nl_type3 => response["TYPE_3"]
-
             }
         end
 
@@ -162,6 +173,7 @@ class CoordinateInfoV1 < ApplicationRecord
     end
     # =========================================
 
+    
     # =========================================
     def self.coord_info_do(longitude_x, latitude_y, db, key)
 
@@ -180,7 +192,6 @@ class CoordinateInfoV1 < ApplicationRecord
 
                 # postgis function z_world_xy_intersects
                 response_query = $conn_pg.query("select z_gadm36_xy_intersect($1, $2)",[coordinate.longitude_x.to_f, coordinate.latitude_y.to_f])
-                # conn.close
 
                 if response_query.num_tuples.to_i === 1
                     return_json = adjust_response_data(response_query, true)
@@ -191,7 +202,6 @@ class CoordinateInfoV1 < ApplicationRecord
                 collection = $conn_mongo["gadm36"]
 
                 response_cursor = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[longitude_x.to_f, latitude_y.to_f]}}}}).to_a
-                # conn.close
 
                 document = response_cursor[0]
 
