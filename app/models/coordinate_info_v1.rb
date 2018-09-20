@@ -107,7 +107,7 @@ class CoordinateInfoV1 < ApplicationRecord
                         conn_string = $db_host_mongo.to_s + ":" + $db_port_mongo.to_s
                     end
                     # valid values are :primary, :primary_preferred, :secondary, :secondary_preferred and :nearest
-                    conn = Mongo::Client.new([conn_string], :database => $db_name_mongo, :user => $db_user_mongo, :password => $db_pwd_mongo, :read => { :mode => :nearest })
+                    conn = Mongo::Client.new([conn_string], :database => $db_name_mongo, :user => $db_user_mongo, :password => $db_pwd_mongo, :read => { :mode => :secondary_preferred })
                     return conn
 
                 rescue
