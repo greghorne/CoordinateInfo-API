@@ -56,8 +56,6 @@ class CoordinateInfoV1 < ApplicationRecord
                                     :user           => $db_user_mongo, 
                                     :password       => $db_pwd_mongo, 
                                     :read           => { :mode => :secondary_preferred }, 
-                                    :ssl            => true,
-                                    :max_idles_time => 10,
                                     :min_pool_size  => 2,
                                     :max_pool_size  => 10)
     # =========================================
