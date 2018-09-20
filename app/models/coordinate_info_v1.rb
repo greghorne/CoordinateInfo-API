@@ -18,10 +18,10 @@ class CoordinateInfoV1 < ApplicationRecord
     $db_user_mongo = ENV["RAILS_USERNAME_MONGO"]
     $db_pwd_mongo  = ENV["RAILS_PASSWORD_MONGO"]
 
+    # create mongodb connection pool
     begin
         hostaddr = Resolv.getaddress $db_host_mongo
-    rescue
-        # catch the error but just continue
+    rescue # catch the error but just continue
     end
 
     if hostaddr
@@ -29,12 +29,17 @@ class CoordinateInfoV1 < ApplicationRecord
     else
         conn_string = $db_host_mongo.to_s + ":" + $db_port_mongo.to_s
     end
-    puts conn_string
-    # valid values are :primary, :primary_preferred, :secondary, :secondary_preferred and :nearest
-    $conn_mongo = Mongo::Client.new([conn_string], :database => $db_name_mongo, :user => $db_user_mongo, :password => $db_pwd_mongo, :read => { :mode => :secondary_preferred }, :max_pool_size => 5)
 
-    puts "$conn_mongo =====>"
-    puts $conn_mongo
+    # valid values are :primary, :primary_preferred, :secondary, :secondary_preferred and :nearest
+    $conn_mongo = Mongo::Client.new([conn_string], 
+                                    :database => $db_name_mongo, 
+                                    :user => $db_user_mongo, 
+                                    :password => $db_pwd_mongo, 
+                                    :read => { :mode => :secondary_preferred }, 
+                                    :max_idles_time => 10,
+                                    :min_pool_size => 1,
+                                    :max_pool_size => 5)
+
 
 
     # =========================================
