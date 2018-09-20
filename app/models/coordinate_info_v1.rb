@@ -38,7 +38,8 @@ class CoordinateInfoV1 < ApplicationRecord
                                     :read => { :mode => :secondary_preferred }, 
                                     :max_idles_time => 10,
                                     :min_pool_size => 1,
-                                    :max_pool_size => 5)
+                                    :max_pool_size => 5,
+                                    :replica_set => "mongodb-gadm")
 
 
 
