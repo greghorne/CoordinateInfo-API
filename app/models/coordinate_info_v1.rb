@@ -18,6 +18,25 @@ class CoordinateInfoV1 < ApplicationRecord
     $db_user_mongo = ENV["RAILS_USERNAME_MONGO"]
     $db_pwd_mongo  = ENV["RAILS_PASSWORD_MONGO"]
 
+    begin
+        hostaddr = Resolv.getaddress $db_host_mongo
+    rescue
+        # catch the error but just continue
+    end
+
+    if hostaddr
+        conn_string = hostaddr.to_s + ":" + $db_port_mongo.to_s
+    else
+        conn_string = $db_host_mongo.to_s + ":" + $db_port_mongo.to_s
+    end
+    puts conn_string
+    # valid values are :primary, :primary_preferred, :secondary, :secondary_preferred and :nearest
+    $conn_mongo = Mongo::Client.new([conn_string], :database => $db_name_mongo, :user => $db_user_mongo, :password => $db_pwd_mongo, :read => { :mode => :secondary_preferred }, :max_pool_size => 5)
+
+    puts "$conn_mongo =====>"
+    puts $conn_mongo
+
+
     # =========================================
     class Coordinate
 
@@ -91,28 +110,28 @@ class CoordinateInfoV1 < ApplicationRecord
                     return false
                 end
 
-            when "mongo"
-                begin
-                    hostaddr = Resolv.getaddress $db_host_mongo
-                rescue
-                    # catch the error but just continue
-                end
+            # when "mongo"
+            #     begin
+            #         hostaddr = Resolv.getaddress $db_host_mongo
+            #     rescue
+            #         # catch the error but just continue
+            #     end
 
-                begin
-                    Mongo::Logger.logger.level = ::Logger::FATAL
+            #     begin
+            #         Mongo::Logger.logger.level = ::Logger::FATAL
 
-                    if hostaddr
-                        conn_string = hostaddr.to_s + ":" + $db_port_mongo.to_s
-                    else
-                        conn_string = $db_host_mongo.to_s + ":" + $db_port_mongo.to_s
-                    end
-                    # valid values are :primary, :primary_preferred, :secondary, :secondary_preferred and :nearest
-                    conn = Mongo::Client.new([conn_string], :database => $db_name_mongo, :user => $db_user_mongo, :password => $db_pwd_mongo, :read => { :mode => :secondary_preferred })
-                    return conn
+            #         if hostaddr
+            #             conn_string = hostaddr.to_s + ":" + $db_port_mongo.to_s
+            #         else
+            #             conn_string = $db_host_mongo.to_s + ":" + $db_port_mongo.to_s
+            #         end
+            #         # valid values are :primary, :primary_preferred, :secondary, :secondary_preferred and :nearest
+            #         conn = Mongo::Client.new([conn_string], :database => $db_name_mongo, :user => $db_user_mongo, :password => $db_pwd_mongo, :read => { :mode => :secondary_preferred })
+            #         return conn
 
-                rescue
-                    return false
-                end
+            #     rescue
+            #         return false
+            #     end
 
         end
     end
@@ -165,6 +184,9 @@ class CoordinateInfoV1 < ApplicationRecord
     # =========================================
     def self.coord_info_do(longitude_x, latitude_y, db, key)
 
+        puts "=====>"
+        puts $conn_mongo
+
         # pass request params and create coordinate object
         coordinate = Coordinate.new(longitude_x, latitude_y, key, db)
 
@@ -178,15 +200,15 @@ class CoordinateInfoV1 < ApplicationRecord
             # get db connection
             conn = get_db_conn(coordinate.db)
 
-            if conn
+            if conn || $conn_mongo
 
                 return_json = {}
                 if coordinate.db == 'mongo'
 
-                    collection = conn["gadm36"]
+                    collection = $conn_mongo["gadm36"]
 
                     response_cursor = collection.find({"geometry":{"$geoIntersects":{"$geometry":{"type":"Point", "coordinates":[longitude_x.to_f, latitude_y.to_f]}}}}).to_a
-                    conn.close
+                    # conn.close
 
                     document = response_cursor[0]
 
