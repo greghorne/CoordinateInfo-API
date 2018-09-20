@@ -37,9 +37,8 @@ class CoordinateInfoV1 < ApplicationRecord
                                     :password => $db_pwd_mongo, 
                                     :read => { :mode => :secondary_preferred }, 
                                     :max_idles_time => 10,
-                                    :min_pool_size => 1,
-                                    :max_pool_size => 5,
-                                    :replica_set => "mongodb-gadm")
+                                    :min_pool_size => 2,
+                                    :max_pool_size => 10)
 
 
 
