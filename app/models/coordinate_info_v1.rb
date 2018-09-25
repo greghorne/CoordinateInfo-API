@@ -171,15 +171,15 @@ class CoordinateInfoV1 < ApplicationRecord
                 :country               => response["NAME_0"],
 
                 :municipality1         => response["NAME_1"],
-                :municipaltiy_nl1      => response["NL_NAME_1"],
+                :municipality_nl1      => response["NL_NAME_1"],
                 :municipality_nl_type1 => response["TYPE_1"],
 
                 :municipality2         => response["NAME_2"],
-                :municipaltiy_nl2      => response["NL_NAME_2"],
+                :municipality_nl2      => response["NL_NAME_2"],
                 :municipality_nl_type2 => response["TYPE_2"],
 
                 :municipality3         => response["NAME_3"],
-                :municipaltiy_nl3      => response["NL_NAME_3"],
+                :municipality_nl3      => response["NL_NAME_3"],
                 :municipality_nl_type3 => response["TYPE_3"]
             }
         end
