@@ -155,15 +155,15 @@ class CoordinateInfoV1 < ApplicationRecord
                 :country               => response_arr[1],
 
                 :municipality1         => response_arr[2],
-                :municipaltiy_nl1      => response_arr[3],
+                :municipality_nl1      => response_arr[3],
                 :municipality_nl_type1 => response_arr[4],
 
                 :municipality2         => response_arr[6],
-                :municipaltiy_nl2      => response_arr[7],
+                :municipality_nl2      => response_arr[7],
                 :municipality_nl_type2 => response_arr[8],
 
                 :municipality3         => response_arr[10],
-                :municipaltiy_nl3      => response_arr[11],
+                :municipality_nl3      => response_arr[11],
                 :municipality_nl_type3 => response_arr[12]
             }
         else
