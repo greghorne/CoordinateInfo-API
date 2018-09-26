@@ -1,14 +1,16 @@
 class CoordinateInfosController < ApplicationController
 
-    config.middleware.insert_before 0, "Rack::Cors" do
-        allow do
-            origins '*'
-            resource '*', :headers => :any, :methods => [:get, :post, :options]
-        end
-    end
+
 
     def coord_info_v1
 
+        config.middleware.insert_before 0, "Rack::Cors" do
+            allow do
+                origins '*'
+                resource '*', :headers => :any, :methods => [:get, :post, :options]
+            end
+        end
+        
         begin
 
             key = params[:key]
