@@ -1,4 +1,4 @@
-### CoordinateInfoAPI
+### CoordinateInfo-API
 
 Scope:
 
