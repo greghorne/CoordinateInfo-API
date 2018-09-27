@@ -54,9 +54,9 @@ class CoordinateInfoV1 < ApplicationRecord
 
     Mongo::Logger.logger.level = Logger::WARN
 
-    puts "conn_string =====>"
-    puts conn_string
-    puts 
+    # puts "conn_string =====>"
+    # puts conn_string
+    # puts 
 
     # valid values are :primary, :primary_preferred, :secondary, :secondary_preferred and :nearest
     $conn_mongo = Mongo::Client.new([conn_string], 
@@ -68,13 +68,13 @@ class CoordinateInfoV1 < ApplicationRecord
                                     :max_pool_size  => 10)
                                     # :replica_set    => 'jdv7vzc6xd07hjjunoykl5l8y')
     # =========================================
-    puts "inspect =====>"
-    puts $conn_mongo.cluster.inspect
-    puts 
-    puts "collection namespace =====>"
-    puts $conn_mongo.database.collection_names
-    puts 
-    puts $conn_mongo.read_preference
+    # puts "inspect =====>"
+    # puts $conn_mongo.cluster.inspect
+    # puts 
+    # puts "collection namespace =====>"
+    # puts $conn_mongo.database.collection_names
+    # puts 
+    # puts $conn_mongo.read_preference
 
 
 
