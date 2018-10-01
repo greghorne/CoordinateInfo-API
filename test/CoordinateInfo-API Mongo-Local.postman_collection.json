@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "d83b4454-fcf7-4a87-b73e-59ffc84ba25f",
-		"name": "CoordinateInfo-API Heroku PG",
+		"_postman_id": "0e575224-0e54-4191-a342-55844a94790b",
+		"name": "CoordinateInfo-API Mongo-Local",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -40,18 +40,24 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?latitude_y=315.552727&longitude_x=-200",
+					"raw": "0.0.0.0:3000/api/v1/coord_info?db=mongo&latitude_y=315.552727&longitude_x=-200",
 					"host": [
-						"coordinate-info",
-						"herokuapp",
-						"com"
+						"0",
+						"0",
+						"0",
+						"0"
 					],
+					"port": "3000",
 					"path": [
 						"api",
 						"v1",
 						"coord_info"
 					],
 					"query": [
+						{
+							"key": "db",
+							"value": "mongo"
+						},
 						{
 							"key": "latitude_y",
 							"value": "315.552727"
@@ -75,7 +81,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "819db492-9421-4f9f-b1c8-b1fbc61ca156",
+						"id": "a1025036-5b71-4134-83dc-f5a21e6792fe",
 						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
@@ -92,11 +98,11 @@
 							"});",
 							"",
 							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(\"\");",
+							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(null);",
 							"});",
 							"",
 							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(\"\");",
+							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(null);",
 							"});",
 							"",
 							"",
@@ -125,12 +131,14 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?db=pg&latitude_y=23.243660&longitude_x=88.445670",
+					"raw": "0.0.0.0:3000/api/v1/coord_info?db=mongo&latitude_y=23.243660&longitude_x=88.445670",
 					"host": [
-						"coordinate-info",
-						"herokuapp",
-						"com"
+						"0",
+						"0",
+						"0",
+						"0"
 					],
+					"port": "3000",
 					"path": [
 						"api",
 						"v1",
@@ -139,7 +147,7 @@
 					"query": [
 						{
 							"key": "db",
-							"value": "pg"
+							"value": "mongo"
 						},
 						{
 							"key": "latitude_y",
@@ -211,18 +219,24 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?latitude_y=39.904200&longitude_x=116.407396",
+					"raw": "0.0.0.0:3000/api/v1/coord_info?db=mongo&latitude_y=39.904200&longitude_x=116.407396",
 					"host": [
-						"coordinate-info",
-						"herokuapp",
-						"com"
+						"0",
+						"0",
+						"0",
+						"0"
 					],
+					"port": "3000",
 					"path": [
 						"api",
 						"v1",
 						"coord_info"
 					],
 					"query": [
+						{
+							"key": "db",
+							"value": "mongo"
+						},
 						{
 							"key": "latitude_y",
 							"value": "39.904200"
@@ -267,18 +281,24 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?latitude_y=43.413029&longitude_x=34.299316",
+					"raw": "0.0.0.0:3000/api/v1/coord_info?db=mongo&latitude_y=43.413029&longitude_x=34.299316",
 					"host": [
-						"coordinate-info",
-						"herokuapp",
-						"com"
+						"0",
+						"0",
+						"0",
+						"0"
 					],
+					"port": "3000",
 					"path": [
 						"api",
 						"v1",
 						"coord_info"
 					],
 					"query": [
+						{
+							"key": "db",
+							"value": "mongo"
+						},
 						{
 							"key": "latitude_y",
 							"value": "43.413029"
@@ -298,7 +318,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8bdd8786-1ec1-422c-a10e-8728c3b68a02",
+						"id": "997f0726-669b-4e38-882c-5972106e9dda",
 						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
@@ -316,11 +336,11 @@
 							"});",
 							"",
 							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(\"\");",
+							"    pm.expect(jsonData.results.municipaltiy_nl1).to.equal(null);",
 							"});",
 							"",
 							"pm.test(\"returns \\\"\\\"\", function() {",
-							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(\"\");",
+							"    pm.expect(jsonData.results.municipaltiy_nl2).to.equal(null);",
 							"});",
 							"",
 							"",
@@ -350,18 +370,24 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=-95.992775&latitude_y=36.153980",
+					"raw": "0.0.0.0:3000/api/v1/coord_info?db=mongo&longitude_x=-95.992775&latitude_y=36.153980",
 					"host": [
-						"coordinate-info",
-						"herokuapp",
-						"com"
+						"0",
+						"0",
+						"0",
+						"0"
 					],
+					"port": "3000",
 					"path": [
 						"api",
 						"v1",
 						"coord_info"
 					],
 					"query": [
+						{
+							"key": "db",
+							"value": "mongo"
+						},
 						{
 							"key": "longitude_x",
 							"value": "-95.992775"
@@ -376,7 +402,7 @@
 			"response": []
 		},
 		{
-			"name": "yemen",
+			"name": "yemen & mongo",
 			"event": [
 				{
 					"listen": "test",
@@ -431,18 +457,24 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "coordinate-info.herokuapp.com/api/v1/coord_info?latitude_y=15.552727&longitude_x=48.516388",
+					"raw": "0.0.0.0:3000/api/v1/coord_info?db=mongo&latitude_y=15.552727&longitude_x=48.516388",
 					"host": [
-						"coordinate-info",
-						"herokuapp",
-						"com"
+						"0",
+						"0",
+						"0",
+						"0"
 					],
+					"port": "3000",
 					"path": [
 						"api",
 						"v1",
 						"coord_info"
 					],
 					"query": [
+						{
+							"key": "db",
+							"value": "mongo"
+						},
 						{
 							"key": "latitude_y",
 							"value": "15.552727"
@@ -461,7 +493,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "70ed2d9c-ca2e-48b0-8001-10f823fd2e66",
+				"id": "716c2c42-4041-47e7-ac14-1e7069470840",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -471,7 +503,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "699bb1d1-7495-4a24-af58-1355cbb8cede",
+				"id": "8032be6d-3dcc-4827-aa74-f153ed968449",
 				"type": "text/javascript",
 				"exec": [
 					""
