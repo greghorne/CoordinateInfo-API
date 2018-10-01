@@ -19,7 +19,7 @@ class CoordinateInfoV1 < ApplicationRecord
     $db_pwd_mongo  = ENV["RAILS_PASSWORD_MONGO"]
 
     # =========================================
-    # create pg connection
+    # create persistent pg connection
     # =========================================
     begin
         hostaddr = Resolv.getaddress $db_host_mongo
