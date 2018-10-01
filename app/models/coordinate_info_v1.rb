@@ -54,10 +54,6 @@ class CoordinateInfoV1 < ApplicationRecord
 
     Mongo::Logger.logger.level = Logger::WARN
 
-    # puts "conn_string =====>"
-    # puts conn_string
-    # puts 
-
     # valid values are :primary, :primary_preferred, :secondary, :secondary_preferred and :nearest
     $conn_mongo = Mongo::Client.new([conn_string], 
                                     :database       => $db_name_mongo, 
@@ -66,18 +62,7 @@ class CoordinateInfoV1 < ApplicationRecord
                                     :read           => { :mode => :secondary }, 
                                     :min_pool_size  => 2,
                                     :max_pool_size  => 10)
-                                    # :replica_set    => 'jdv7vzc6xd07hjjunoykl5l8y')
     # =========================================
-    # puts "inspect =====>"
-    # puts $conn_mongo.cluster.inspect
-    # puts 
-    # puts "collection namespace =====>"
-    # puts $conn_mongo.database.collection_names
-    # puts 
-    # puts $conn_mongo.read_preference
-
-
-
 
 
     # =========================================
@@ -115,7 +100,7 @@ class CoordinateInfoV1 < ApplicationRecord
 
     # =========================================
     #
-    # deprecated this function which takes a hostname and and resolves the hostaddr (ip)
+    # removed this function which takes a hostname and and resolves the hostaddr (ip)
     # now, a pg connection is being left open and mongo is using a connection pool
     # instead of opening/closing a connection per api request
     # speed difference is enomous completing requests in about 1/3 of the time
