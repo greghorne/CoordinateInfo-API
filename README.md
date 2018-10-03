@@ -137,8 +137,10 @@ Example API Calls:
                         or
             (China, 北京|北京 Zhíxiáshì)
 
-            In that the data repeats itself only the first set of data is relavent.
-            Also note dataset error of repeat of 北京 as 北京|北京.  北京 = Beijing
+            The data repeats iteself with: 北京|北京.  北京 = Beijing
+            The left side of | is for old characters and the right side is for new characters.
+            In this case, they are the same and there is no difference.
+            Try different locations in China and the left vs right side differences can be observed.
 
 
     - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=34.299316&latitude_y=43.413029
