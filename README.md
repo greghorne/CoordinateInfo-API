@@ -189,7 +189,7 @@ Example API Calls:
 
 Notes:
 
-    - There are additonal columns in the dataset but I have cut them off after the first two interations of a location.
+    - There are additonal columns in the dataset but I have cut them off after the first three interations of a location.
 
     - Creating this app has been a weird trip
       
