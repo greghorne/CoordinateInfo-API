@@ -1,0 +1,56 @@
+==============================
+docker-compose.yml -
+
+version: '3'
+
+services:
+  mongodb-primary:
+    image: 'arm64v8/mongo:nojournal'
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGODB_REPLICA_SET_MODE=primary
+    volumes:
+      - '/home/pirate/mongodb/data-gadm:/data/db'
+
+  mongodb-secondary:
+    image: 'arm64v8/mongo:nojournal'
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_PRIMARY_HOST=mongodb-primary
+      - MONGODB_PRIMARY_PORT_NUMBER=27017
+    volumes:
+      - '/home/pirate/mongodb/data-gadm2:/data/db'
+
+  mongodb-arbiter:
+    image: 'arm64v8/mongo:nojournal'
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_PRIMARY_HOST=mongodb-primary
+
+volumes:
+  mongodb_master_data:
+    driver: local
+==============================
+
+==============================
+swarm-up.sh -
+
+# executed by crontab
+
+docker stack rm mongodb-gadm
+docker swarm leave --force
+docker swarm init
+docker stack deploy -c /home/pirate/mongodb/scripts/docker-compose.yml mongodb-gadm
+==============================
+
+==============================
+swarm-down.sh -
+
+docker stack rm mongodb-gadm
+docker swarm leave --force
+==============================
