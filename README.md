@@ -24,24 +24,23 @@ Tech Stack:
 	-   PostgreSQL 9.4 with PostGIS 2.1.4
 	    Executing on a Raspberry Pi 2 Model B running Raspbian-Jessie
 	-   MongoDB v4.0.1
-	    Executing as a Docker 18.06.1-ce replica set, primary, secondary & arbiter, on a Raspberry Pi 3 B running HypriotOS x64
+	    Executing as a Docker 18.06.1-ce swarm replica set, primary, secondary & arbiter, on a Raspberry Pi 3 B running HypriotOS x64
 	-   (Note: PostgreSQl & MongoDB contain the same gadm36 dataset)
 	   
     -   API tested with Postman (see 'test' folder for JSON test files)
        
-    -   Deployed to Heroku (free tier):  https://coordinate-info.herokuapp.com
-    -   (Note: Initial API call may require the API to spin-up from sleep on Heroku)
+    -   Rails API deployed as a Docker container on a Raspberry Pi 3 B:  http://zotac1.ddns.net:3100
  
 
 API Usage:
 
     - Requests are throttled to 100 requests per 2 minutes per ip.
 
-    - https://coordinate-info.herokuapp.com/api/v1?longitude_x=float&latitude_y=float&db=db_type&key=optional
+    - http://zotac1.ddns.net:3100/api/v1?longitude_x=float&latitude_y=float&db=db_type&key=optional
 
         longitude_x = type: float 
         latitude_y  = type: float 
-        db = type: string ==> pg (default) or mongo 
+        db          = type: string ==> pg (default) or mongo 
 
     - Return value is JSON
         {
@@ -64,7 +63,7 @@ API Usage:
 
 Example API Calls:
 
-    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=88.445670&latitude_y=23.243660
+    - example http://zotac1.ddns.net:3100/api/v1/coord_info?longitude_x=88.445670&latitude_y=23.243660
 
         returns JSON (intersects location in India)
 
@@ -88,7 +87,7 @@ Example API Calls:
             (India, West Bengal State, Nadia District, Ranaghat Taluk)
 
 
-    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?db=mongo&longitude_x=-95.992775&latitude_y=36.153980
+    - example http://zotac1.ddns.net:3100/api/v1/coord_info?db=mongo&longitude_x=-95.992775&latitude_y=36.153980
 
         returns JSON (intersects location in Tulsa, OK)
 
@@ -112,7 +111,7 @@ Example API Calls:
             (United States, Oklahoma State, Tulsa County)
 
 
-    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=116.407396&latitude_y=39.904200
+    - example http://zotac1.ddns.net:3100/api/v1/coord_info?longitude_x=116.407396&latitude_y=39.904200
 
         returns JSON (intersects location in China)
 
@@ -143,7 +142,7 @@ Example API Calls:
             Try different locations in China and the left vs right side differences can be observed.
 
 
-    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=34.299316&latitude_y=43.413029
+    - example http://zotac1.ddns.net:3100/api/v1/coord_info?longitude_x=34.299316&latitude_y=43.413029
 
         returns JSON (intersects location in The Black Sea):
         {
@@ -152,7 +151,7 @@ Example API Calls:
         }
 
 
-    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=-200&latitude_y=15.552727
+    - example http://zotac1.ddns.net:3100/api/v1/coord_info?longitude_x=-200&latitude_y=15.552727
 
         returns JSON (invalid longitude_x):
         {
@@ -162,7 +161,7 @@ Example API Calls:
             }
         }
 
-    - example https://coordinate-info.herokuapp.com/api/v1/coord_info?longitude_x=48.516388&latitude_y=15.552727
+    - example http://zotac1.ddns.net:3100/api/v1/coord_info?longitude_x=48.516388&latitude_y=15.552727
 
         returns JSON (intersects location in Yemen): 
         {
