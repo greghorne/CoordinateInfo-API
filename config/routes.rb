@@ -6,4 +6,8 @@ Rails.application.routes.draw do
       get "coord_info" => "coordinate_infos#coord_info_v1"
     end
   end
+
+  get  'home/index' => 'home#index'
+  root 'home#index'
+
 end
