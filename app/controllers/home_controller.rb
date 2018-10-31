@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
     def index 
 
-        puts "HomeController.index"
+        # puts "HomeController.index"
         # render :index
         # render "home/index"
         # render 'index.html.erb'
