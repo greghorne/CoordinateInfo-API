@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get  'home/index' => 'home#index'
-  root 'home#index'
+   root 'home#index'
 
 end
